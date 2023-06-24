@@ -1,11 +1,10 @@
 local function map(mode, lhs, rhs)
-	vim.keymap.set(mode, lhs, rhs, { silent = true })
+    vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
 -- map <leader> = the space key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 
 vim.opt.whichwrap = "b,s,h,l,[,],<,>,~"
 
@@ -32,7 +31,7 @@ map("n", "<leader>bn", "<CMD>TablineBufferNext<CR>")
 map("n", "<leader>bp", "<CMD>TablineBufferPrevious<CR>")
 
 -- Terminal
-map("n", "<leader>tt","<CMD>ToggleTerm<CR>")
+map("n", "<leader>tt", "<CMD>ToggleTerm<CR>")
 
 -- Alpha
-map("n", "<leader>a","<CMD>Alpha<CR>")
+map("n", "<leader>a", "<CMD>Alpha<CR>")
