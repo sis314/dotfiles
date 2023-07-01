@@ -8,6 +8,7 @@ toggleterm.setup({
 	size = 10,
 	open_mapping = [[<F7>]],
 	shading_factor = 2,
+	shade_terminals = false,
 	direction = "float",
 	float_opts = {
 		border = "curved",
@@ -15,6 +16,6 @@ toggleterm.setup({
 			border = "Normal",
 			background = "Normal",
 		},
-    winblend = 15,
+		winblend = 15,
 	},
 })
