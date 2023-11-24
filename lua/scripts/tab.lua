@@ -1,5 +1,5 @@
-vim.cmd[[
-    
+vim.cmd([[
+
 function! GetNextString(length) abort
 	let l:str = ""
 	for i in range(0, a:length-1)
@@ -17,4 +17,4 @@ function! TabOut() abort
 endfunction
 
 inoremap <expr> <Tab> TabOut()
-]]
+]])

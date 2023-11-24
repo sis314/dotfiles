@@ -7,9 +7,9 @@ lualine.setup({
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = "onenord",
-    component_separators = { left = "", right = "" },
-    section_separators = { left = "", right = "" },
+    theme = "sonokai",
+    component_separators = { left = "", right = " " },
+    section_separators = { left = "", right = " " },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -23,11 +23,24 @@ lualine.setup({
     },
   },
   sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename" },
-    lualine_x = { "encoding", "filetype" },
-    lualine_y = { "progress" },
+    lualine_a = { { "mode" } },
+    lualine_b = {},
+    lualine_c = {
+      {
+        "filename",
+        path = 1,
+      },
+    },
+    lualine_x = {
+      {
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        symbols = { error = " ", warn = " ", info = " ", hint = "󱤅 ", other = "󰠠 " },
+        colored = true,
+        padding = 2,
+      },
+    },
+    lualine_y = {},
     lualine_z = { "location" },
   },
   inactive_sections = {

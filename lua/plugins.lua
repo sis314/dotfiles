@@ -1,63 +1,144 @@
 return {
+  --Other
+  { "nvim-lua/plenary.nvim",  lazy = true },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+  },
+  {
+    "takac/vim-hardtime",
+    config = function()
+      vim.cmd("HardTimeOn")
+    end,
+    lazy = true,
+  },
+
+  --ColorScheme
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = true,
+  },
+  {
+    "catppuccin/nvim",
+    as = "catppuccin",
+    lazy = true,
+  },
   {
     "rmehri01/onenord.nvim",
+    lazy = true,
+  },
+  {
+    "Shatur/neovim-ayu",
+    lazy = true,
+  },
+  {
+    "sainnhe/sonokai",
+    lazy = true,
+  },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = true,
+  },
+  {
+    "neanias/everforest-nvim",
+    lazy = true,
+  },
+  {
+    "AlexvZyl/nordic.nvim",
+    lazy = true,
+  },
+
+  --UI
+  {
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    init = function()
+      vim.g.barbar_auto_setup = true
+    end,
     config = function()
-      require("onenord").setup()
+      require("ui.barbar")
     end,
     lazy = true,
   },
   {
-    "nvim-tree/nvim-web-devicons",
+    "petertriho/nvim-scrollbar",
     lazy = true,
+    config = function()
+      require("ui.scrollbar")
+    end,
+    --event = "CursorMoved",
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("ui.gitsigns")
+    end,
+    event = "UIEnter",
   },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("indent_blankline").setup({
         show_end_of_line = true,
+        char = "▏",
       })
+      vim.cmd([[
+        autocmd ColorScheme * highlight IndentBlanklineChar cterm=nocombine ctermfg=237 gui=nocombine guifg=#424b5b
+      ]])
     end,
-    lazy = true,
   },
   {
     "nvim-lualine/lualine.nvim",
     config = function()
-      require("configs.lualine")
+      require("ui.lualine")
     end,
     dependencies = { "nvim-web-devicons" },
-    lazy = true,
+    event = "UIEnter",
+  },
+
+  --Utility
+  {
+    "ojroques/nvim-bufdel",
   },
   {
-    "kdheepak/tabline.nvim",
-    config = function()
-      require("tabline").setup({
-        enable = true,
-        options = {
-          section_separators = { "", "" },
-          component_separators = { "", "" },
-        },
-      })
-      vim.cmd([[
-        set guioptions-=e
-        set sessionoptions+=tabpages,globals
-      ]])
-    end,
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
     dependencies = {
-      { "nvim-lualine/lualine.nvim" },
-      { "nvim-web-devicons" },
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
     },
-    event = { "VeryLazy" },
+    config = function()
+      require("configs.neotree")
+    end,
+    keys = {
+      { "<leader>e", "<cmd>NeoTreeShowToggle<cr>" },
+    },
+  },
+  { "machakann/vim-sandwich", event = "CursorMoved" },
+  { "tpope/vim-surround",     event = "CursorMoved" },
+  { "tpope/vim-repeat",       event = "CursorMoved" },
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("configs.toggleterm")
+    end,
+    cmd = "ToggleTerm",
+    keys = { "<F7>", "<cmd>ToggleTerm<cr>" },
   },
   {
-    "petertriho/nvim-scrollbar",
+    "windwp/nvim-autopairs",
     config = function()
-      require("configs.scrollbar")
+      require("configs.autopairs")
     end,
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
-
-  { "nvim-lua/plenary.nvim",  lazy = true },
-
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.1",
@@ -75,6 +156,36 @@ return {
       { "<leader>fr", "<cmd> Telescope oldfiles<cr>" },
     },
   },
+
+  --Each Filetype
+  {
+    "mrcjkb/haskell-tools.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    branch = "1.x.x",
+    config = function()
+      require("configs.haskell")
+    end,
+    ft = "haskell",
+  },
+  {
+    "lervag/vimtex",
+    config = function()
+      vim.g.latex_latexmk_options = "-pdf -c"
+      vim.g.vimtex_view_general_viewer = "SumatraPDF.exe"
+      vim.cmd([[
+      augroup VimTeX
+        autocmd!
+        autocmd BufReadPre /path/to/project/*.tex
+              \ let b:vimtex_main = '/path/to/project/main.tex'
+        augroup END
+      ]])
+    end,
+    ft = "tex",
+  },
+
+  --LSP
   {
     "williamboman/mason.nvim",
     config = function()
@@ -88,7 +199,7 @@ return {
     config = function()
       require("configs.mason-lsp")
     end,
-    dependencies = "mason.nvim",
+    dependencies = { "mason.nvim", "lspkind-nvim" },
     lazy = true,
   },
   {
@@ -96,22 +207,35 @@ return {
     config = function()
       require("configs.lsp")
     end,
-    dependencies = { "mason-lspconfig.nvim", "lspkind-nvim" },
+    dependencies = { "mason-lspconfig.nvim" },
+    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+    event = { "BufReadPost", "BufNewFile" },
   },
   {
     "onsails/lspkind-nvim",
     lazy = true,
   },
   {
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("configs.null-ls")
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = true,
+  },
+  {
     "hrsh7th/nvim-cmp",
     config = function()
-      require("configs.cmp")
+      require("ui.cmp")
     end,
     lazy = true,
   },
   {
+    "hrsh7th/cmp-omni",
+    event = "InsertEnter",
+  },
+  {
     "hrsh7th/cmp-nvim-lsp",
-    dependencies = "nvim-cmp",
     event = "InsertEnter",
   },
   {
@@ -130,14 +254,6 @@ return {
     event = "CmdLineEnter",
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    config = function()
-      require("configs.null-ls")
-    end,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = true,
-  },
-  {
     "L3MON4D3/LuaSnip",
     tag = "v<CurrentMajor>.*",
     event = "InsertEnter",
@@ -147,56 +263,16 @@ return {
     config = function()
       require("configs.treesitter")
     end,
-    event = "VeryLazy",
+    event = "UIEnter",
+    dependencies = { "norcalli/nvim-colorizer.lua" },
   },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup({ "*" })
     end,
-    event = "BufEnter",
-  },
-  { "machakann/vim-sandwich", event = "VeryLazy" },
-  { "tpope/vim-surround",     event = "VeryLazy" },
-  { "tpope/vim-repeat",       event = "VeryLazy" },
-  {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("configs.toggleterm")
-    end,
-    keys = { "<F7>", "<cmd>ToggleTerm<cr>" },
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("configs.neotree")
-    end,
-    event = "VeryLazy",
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("configs.gitsigns")
-    end,
-    event = "VeryLazy",
-  },
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("configs.autopairs")
-    end,
-    event = "InsertEnter",
-  },
-  {
-    "xiyaowong/nvim-transparent",
-    config = function()
-      require("configs.transparent")
-    end,
+    lazy = true,
   },
 }
+
+--LSP

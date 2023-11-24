@@ -1,7 +1,6 @@
 local o = vim.o
-
 vim.opt.termguicolors = true
-vim.opt.pumblend = 15
+vim.opt.pumblend = 0
 vim.opt.laststatus = 3
 -- editor options
 -- Environment options
@@ -26,7 +25,13 @@ o.cursorline = true
 o.showmatch = true
 o.matchtime = 1
 o.showmode = false
-o.pumheight = 8
+o.pumheight = 10
+vim.cmd([[
+augroup highlight_yank
+autocmd!
+au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
+augroup END
+]])
 
 o.inccommand = "split"
 o.splitbelow = "splitright"
@@ -49,3 +54,12 @@ o.incsearch = true
 o.hlsearch = true
 o.ignorecase = true
 o.smartcase = true
+
+-- Diagnostic
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
+-- Folding
+o.foldmethod = "indent"
+o.foldlevelstart = 100

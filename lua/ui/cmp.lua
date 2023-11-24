@@ -4,8 +4,8 @@ if not status then
 end
 local lspkind = require("lspkind")
 
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#7FBBB3", bg = "NONE" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#7FBBB3", bg = "NONE" })
+--vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#7FBBB3", bg = "NONE" })
+--vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#7FBBB3", bg = "NONE" })
 
 local icons = {
   Class = " ",
@@ -57,7 +57,7 @@ cmp.setup({
     completion = cmp.config.window.bordered({
       border = "none",
       side_padding = 0,
-      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:CursorLine,Search:None",
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu",
     }),
     documentation = cmp.config.window.bordered({
       border = "none",
@@ -70,6 +70,7 @@ cmp.setup({
     { name = "luasnip",  priority = 750 },
     { name = "buffer",   priority = 500 },
     { name = "path",     priority = 250 },
+    { name = "omni",     priority = 600, ft = "tex" },
   }),
   experimental = {
     ghost_text = true,

@@ -1,3 +1,9 @@
 require("telescope").setup({
-  winblend = 15,
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = require("telescope.actions").close,
+      },
+    },
+  },
 })
