@@ -27,7 +27,7 @@ map("v", "<leader>h", "^")
 
 map("n", "<leader>n", "<CMD>bn<CR>")
 map("n", "<leader>p", "<CMD>bp<CR>")
-map("n", "<leader>bd", "<CMD>bufDel<CR>")
+map("n", "<leader>bd", "<CMD>BufDel<CR>")
 
 --LSP
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")

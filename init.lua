@@ -1,8 +1,8 @@
+vim.api.nvim_exec("language en_US", true)
 if vim.g.vscode then
   require("vscode.vscode")
 else
   vim.opt.title = false
-  vim.api.nvim_exec("language en_US", true)
   vim.g.mapleader = " "
 
   if vim.g.neovide then

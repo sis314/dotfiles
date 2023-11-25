@@ -1,4 +1,3 @@
-vim.api.nvim_exec("language en_US", true)
 vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -14,7 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = require("plugins")
+local plugins = require("vscode.vs-plugins")
 require("lazy").setup(plugins)
-require("maps")
-require("settings")
+require("vscode.vs-maps")
+require("vscode.vs-settings")

@@ -274,5 +274,3 @@ return {
     lazy = true,
   },
 }
-
---LSP

@@ -26,6 +26,9 @@ map("v", "<leader>h", "^")
 
 map("n", "<leader>n", "<cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>")
 map("n", "<leader>p", "<cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>")
+map("n", "<leader>bd", "<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>")
+
+map("n", "<leader>e", "<cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
 
 --LSP
 map("n", "K", "<cmd>call VSCodeNotify('editor.action.showHover')<CR>")
