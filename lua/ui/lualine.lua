@@ -7,7 +7,8 @@ lualine.setup({
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = "sonokai",
+    --theme = "sonokai",
+    --theme = "seoul256",
     component_separators = { left = "", right = " " },
     section_separators = { left = "", right = " " },
     disabled_filetypes = {
